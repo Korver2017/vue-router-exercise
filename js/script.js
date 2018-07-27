@@ -1,7 +1,7 @@
 let List = {
   template: `<div>
       <p>
-        <input type="text" v-model.trim="input">
+        <input type="text" v-model.trim="input" @keyup.enter="create">
         <button @click="create">Create</button>
       </p>
       <ol>
@@ -17,8 +17,18 @@ let List = {
     };
   },
   computed: {
-    contents() {}
+    contents() {
+      this.contents;
+    }
   },
+  methods: {
+    create() {
+      axios.post('http://localhost:3000/contents', {
+        content: this.input
+      });
+      this.input = ''
+    }
+  }
 };
 
 let Edit = {
