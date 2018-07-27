@@ -2,21 +2,30 @@ let List = {
   template: `<div>
       <p>
         <input type="text" v-model.trim="input">
-        <button @click="create"></button>
+        <button @click="create">Create</button>
       </p>
       <ol>
         <li v-for="(item, index) in contents" :key="item.id">
           {{ item.content }}
         </li>
       </ol>
-    </div>`
+    </div>`,
+  data: function () {
+    return {
+      input: '',
+      contents: []
+    };
+  },
+  computed: {
+    contents() {}
+  },
 };
 
 let Edit = {
   template: `<div>
       <p>
         <input v-model.trim="input" type="text" />
-        <button @click="update"></button>
+        <button @click="update">Update</button>
       </p>
     </div>`
 }
