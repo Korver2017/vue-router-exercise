@@ -1,6 +1,5 @@
 let List = {
-  template: `
-    <div>
+  template: `<div>
       <p>
         <input type="text" v-model.trim="input">
         <button @click="create"></button>
@@ -14,7 +13,12 @@ let List = {
 };
 
 let Edit = {
-
+  template: `<div>
+      <p>
+        <input v-model.trim="input" type="text" />
+        <button @click="update"></button>
+      </p>
+    </div>`
 }
 
 let router = new VueRouter({
