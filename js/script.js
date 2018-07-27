@@ -1,6 +1,9 @@
 let List = {
   template: `<div>
-      <p>
+      <h2>{{input}}</h2>
+      <br>
+      <br>
+      <p> 
         <input type="text" v-model.trim="input" @keyup.enter="create">
         <button @click="create">Create</button>
       </p>
@@ -17,9 +20,9 @@ let List = {
     };
   },
   computed: {
-    contents() {
-      this.contents;
-    }
+    // contents() {
+    //   this.contents;
+    // }
   },
   methods: {
     create() {
@@ -28,6 +31,14 @@ let List = {
       });
       this.input = ''
     }
+  },
+  mounted() {
+    axios.get('http://localhost:3000/contents')
+      .then((res) => {
+        console.log(res);
+        let data = res.data;
+        this.contents = data;
+      });
   }
 };
 
