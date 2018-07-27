@@ -1,15 +1,13 @@
 let List = {
   template: `<div>
-      <h2>{{input}}</h2>
-      <br>
-      <br>
+      <p>{{input}}</p>
       <p> 
         <input type="text" v-model.trim="input" @keyup.enter="create">
         <button @click="create">Create</button>
       </p>
       <ol>
         <li v-for="(item, index) in contents" :key="item.id">
-          {{ item.content }}
+          {{ item.content }}   <button @click="remove(index)">Delete</button>
         </li>
       </ol>
     </div>`,
@@ -28,9 +26,21 @@ let List = {
     create() {
       axios.post('http://localhost:3000/contents', {
         content: this.input
-      });
-      this.input = ''
-    }
+      }).then(res => {
+        this.input = '';
+        // console.log(res.data);
+        this.contents.push(res.data);
+      })
+    },
+    remove(index) {
+      // console.log(index);
+      let target = this.contents[index];
+      axios.delete(`http://localhost:3000/contents/${target.id}`)
+        .then(res => {
+          // console.log(res);
+          this.contents.splice(index, 1);
+        });
+    },
   },
   mounted() {
     axios.get('http://localhost:3000/contents')
